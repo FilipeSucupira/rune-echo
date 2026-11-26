@@ -1,0 +1,13 @@
+{
+  "name": "rune-echo",
+  "version": "1.0.0",
+  "description": "RUNE ECHO - jogo de cartas/feitiços que valida entradas com um Autômato de Pilha e um Autômato Linearmente Limitado (LFA).",
+  "private": true,
+  "scripts": {
+    "test": "node --test \"tests/*.test.js\"",
+    "resultados": "node tests/gerar-resultados.js",
+    "start": "python -m http.server 8080"
+  },
+  "dependencies": {},
+  "license": "MIT"
+}
