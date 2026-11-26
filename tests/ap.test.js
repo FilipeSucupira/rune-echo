@@ -52,7 +52,7 @@ test('GLC: derivação mais à esquerda existe para toda cadeia aceita pelo AP',
   }
 });
 
-test('GLC e AP concordam: derivável <=> aceita (todas as cadeias até comprimento 7)', () => {
+test('GLC e AP concordam: derivável <=> aceita (todas as cadeias até comprimento 6)', () => {
   const sigma = RE.ap.SIGMA;
   const gen = (n) => (n === 0 ? [''] : gen(n - 1).flatMap((w) => sigma.map((s) => w + s)));
   let total = 0;

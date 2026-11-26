@@ -25,11 +25,28 @@ Eventos: `(` `[` abrem camadas do escudo; `)` `]` as fecham; `F`, `I`, `T` = fog
 
 ### Derivação mais à esquerda de `([()])[]#FITIF:FITIF` (20 símbolos)
 ```
-S ⇒ E # R : R ⇒ D E # R : R ⇒ ( E ) E # R : R ⇒ ( D ) E # R : R ⇒ ( [ E ] ) E # R : R
-  ⇒ ( [ D ] ) E # R : R ⇒ ( [ ( ) ] ) E # R : R ⇒ ( [ ( ) ] ) D # R : R
-  ⇒ ( [ ( ) ] ) [ ] # R : R ⇒ ... ⇒ ( [ ( ) ] ) [ ] # F I T I F : F I T I F
+S
+⇒ E # R : R                     [S → E # R : R]
+⇒ D E # R : R                   [E → D E]
+⇒ ( E ) E # R : R               [D → ( E )]
+⇒ ( D ) E # R : R               [E → D]
+⇒ ( [ E ] ) E # R : R           [D → [ E ]]
+⇒ ( [ D ] ) E # R : R           [E → D]
+⇒ ( [ ( ) ] ) E # R : R         [D → ( )]
+⇒ ( [ ( ) ] ) D # R : R         [E → D]
+⇒ ( [ ( ) ] ) [ ] # R : R       [D → [ ]]
+⇒ ( [ ( ) ] ) [ ] # F R : R     [R → F R]
+⇒ ... # F I R : R               [R → I R]
+⇒ ... # F I T R : R             [R → T R]
+⇒ ... # F I T I R : R           [R → I R]
+⇒ ... # F I T I F : R           [R → F]
+⇒ ... : F R                     [R → F R]
+⇒ ... : F I R                   [R → I R]
+⇒ ... : F I T R                 [R → T R]
+⇒ ... : F I T I R               [R → I R]
+⇒ ( [ ( ) ] ) [ ] # F I T I F : F I T I F    [R → F]
 ```
-(Os passos de `R` aplicam `R → r R` quatro vezes e `R → r` uma vez, em cada lado. A interface gera a derivação completa na aba **Derivação**.)
+(`...` apenas abrevia o prefixo já derivado; são 19 passos de derivação. A interface mostra a derivação completa, sem abreviações, na aba **Derivação**.)
 
 ## 3. Autômato de pilha
 
@@ -75,7 +92,7 @@ Cada transição que lê avança a posição; as únicas transições ε (q1→q
 **Regra de aceitação:** L₂ = { x : x | x ∈ {F,I,T}⁺ } (o ALL recebe o trecho após `#`).
 
 **Classificação (argumento técnico):**
-- L₂ **não é livre de contexto.** Intersecção com o regular `F*I*:F*I*` resulta em `{FᵃIᵇ:FᵃIᵇ}`; se L₂ fosse LLC, essa intersecção também seria. Com o lema do bombeamento para LLC sobre `z = FᵖIᵖ:FᵖIᵖ` (|vwxyz| ≤ p), qualquer escolha de v,y que bombeie altera só um dos lados do `:` (ou o separador), quebrando a igualdade. Trata-se da linguagem clássica {ww} (Hopcroft–Motwani–Ullman; Sipser).
+- L₂ **não é livre de contexto.** Intersecção com o regular `F*I*:F*I*` resulta em `{FᵃIᵇ:FᵃIᵇ}`; se L₂ fosse LLC, essa intersecção também seria. Com o lema do bombeamento para LLC: suponha L₂ livre de contexto com constante p e tome z = FᵖIᵖ:FᵖIᵖ ∈ L₂ (|z| > p). Para qualquer decomposição z = uvwxy com |vwx| ≤ p, |vx| ≥ 1, mostramos que uv²wx²y ∉ L₂. **(i)** Se v ou x contém `:`, a cadeia bombeada tem dois `:` e sai de L₂. **(ii)** Se vwx não contém `:`, ele está inteiro na metade esquerda ou inteiro na direita; bombear muda o tamanho de só uma das metades, que deixam de ser iguais. **(iii)** Se `:` está em w, como |vwx| ≤ p, v cai nos `I` finais da esquerda e x nos `F` iniciais da direita; a cadeia bombeada fica `FᵖI^(p+|v|) : F^(p+|x|)Iᵖ`, que difere (se |x| > 0, a primeira posição de divergência é a (p+1)-ésima, `I` contra `F`; se |x| = 0, os tamanhos diferem). Contradição; logo L₂ ∉ LLC. (Prova padrão de {ww}: Sipser, *Introdução à Teoria da Computação*, Cap. 2; Hopcroft–Motwani–Ullman, Cap. 7.) Trata-se da linguagem clássica {ww} (Hopcroft–Motwani–Ullman; Sipser).
 - L₂ **é sensível ao contexto**: um ALL a reconhece usando apenas as n células da entrada, marcando símbolos (o espaço é linear, **LBA ⇔ LSC**).
 - Hierarquia de Chomsky aplicada ao projeto: L₁ é tipo 2 (reconhecida por AP) e L₂ é tipo 1 (reconhecida por ALL). Intuição: a pilha só devolve os símbolos em ordem **inversa** (último a entrar, primeiro a sair), então um AP compara `y` com `x` espelhado, nunca na mesma ordem; por isso a cópia exige a fita do ALL.
 
