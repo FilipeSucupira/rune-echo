@@ -1,4 +1,4 @@
-# RUNE ECHO
+﻿# RUNE ECHO
 
 Jogo de feitiços em **HTML + CSS + JS** (sem dependências) para o Trabalho Prático de **Linguagens Formais e Autômatos** (reconhecimento com pilha e fita limitada).
 
@@ -28,7 +28,7 @@ npm start              # abre servidor em http://localhost:8080 → acesse /inde
 #   (alternativa: dê duplo clique em index.html)
 
 # 3) Repetir os testes
-npm test               # 67 testes (AP, ALL, integração, jogo)
+npm test               # testes (AP, ALL, integração, jogo)
 npm run resultados     # regrava tests/RESULTADOS.md (entrada, esperado, obtido, regra)
 ```
 
@@ -49,12 +49,22 @@ O jogo (`src/game`) **apenas consome** a decisão de `pipeline.js`; quem decide 
 Veja [docs/ESPECIFICACAO.md](docs/ESPECIFICACAO.md) (linguagens, GLC, derivação, AP, ALL, classificação, terminação, não determinismo).
 Testes: [tests/RESULTADOS.md](tests/RESULTADOS.md).
 
-## Níveis (demo)
-| Nível | Monstro | Fraqueza | Missão |
-|---|---|---|---|
-| 1 | Slime de Gelo | F | qualquer feitiço válido |
-| 2 | Morcego Flamejante | I | ao menos uma runa `I` em x |
-| 3 | Golem de Musgo | F | escudo com `[ ]` e ≥ 12 símbolos |
+## Mecânicas do jogo
+- **Barreira aleatória por turno:** o feitiço só fere se o escudo cumprir a exigência sorteada (ex.: 2 escudos `( )`, 1 escudo `[ ]`, profundidade ≥ 3). Os autômatos decidem se o feitiço é válido; a barreira é uma regra extra do jogo.
+- **Turno do inimigo:** depois de cada feitiço o monstro ataca; defesa = ⌊pares do escudo ÷ 2⌋ (só se o AP aceitou) + Escudo Rúnico. AP rejeita = sem defesa; ALL rejeita = defende, mas não fere.
+- **Dano:** |x| × poder (×2 na fraqueza). Símbolo inválido mostra erro e não gasta o turno.
+
+## Níveis
+| Nível | Monstro | Fraqueza | ATK | Barreiras sorteadas |
+|---|---|---|---|---|
+| 1 | Slime de Gelo | F | 2 | nenhuma (tutorial) |
+| 2 | Morcego Flamejante | I | 3 | 1 ( ) · 2 escudos |
+| 3 | Golem de Musgo | F | 3 | 2 ( ) · 1 [ ] |
+| 4 | Espectro Gélido | T | 4 | profundidade 3 · ( )+[ ] |
+| 5 | Lobo da Geada | F | 4 | 2 ( )+1 [ ] · 3 escudos e ≥14 símbolos |
+| 6 | Dragão de Brasa | I | 5 | 2 [ ] · profundidade 3 + ( ) |
+| 7 | Hidra do Pântano | F | 5 | 3 ( ) · 2 ( )+1 [ ] · 3 escudos e ≥18 símbolos |
+| 8 | Arquimago Sombrio (chefe) | T | 6 | 2 ( )+2 [ ] · profundidade 4 · ( )+[ ] e ≥18 símbolos |
 
 ## Originalidade e uso de IA
 - **Problema, linguagens, GLC, AP, ALL e jogo** são da equipe e **não** são os exercícios de sala nem o exemplo da lauda (`(())#RRVVEE`).
@@ -64,3 +74,4 @@ Testes: [tests/RESULTADOS.md](tests/RESULTADOS.md).
 
 ## Equipe
 *[PREENCHER: nomes completos e contribuição de cada integrante]*
+

@@ -86,6 +86,8 @@ button.slot:hover:not(.locked) { border-color: var(--cyan); box-shadow: 0 0 8px 
 #mage-img img { width: 100%; image-rendering: pixelated; }
 .mage-stats { flex: 1; font-family: var(--pix); font-size: 9px; line-height: 2; }
 #mage-power { color: var(--yel); }
+#mage.shake { animation: hit .45s; border-color: var(--mag); }
+#log { min-height: 52px; }
 
 /* grimorio */
 #grimorio { border: 2px solid var(--mag); border-bottom: 0; border-radius: 10px 10px 0 0; background: var(--panel); height: 300px; display: flex; flex-direction: column;

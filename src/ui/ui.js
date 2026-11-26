@@ -26,7 +26,7 @@
     const s = game.state;
     $('#lvl').textContent = 'LEVEL ' + lv.id;
     $('#tipo').textContent = lv.tipo.toUpperCase();
-    $('#mission').innerHTML = '🎯 ' + esc(lv.missao);
+    $('#mission').innerHTML = `🛡 BARREIRA: <b>${esc(RE.game.describeBarrier(s.barrier))}</b><br>⚔ ATAQUE ${lv.atk} · fraqueza ${lv.fraqueza}`;
     $('#monster-name').textContent = lv.nome;
     sprite($('#monster'), `monstro${lv.id}.png`, lv.emoji);
     const arena = $('#arena');
@@ -278,7 +278,8 @@
       <b>Termina sempre</b>: cada rodada marca 2 células, então há no máximo n/2 rodadas de O(n) passos. É determinístico.</p>
       <p>Estados (${L.STATES.length}): ${L.STATES.map((s) => `<code>${s}</code>`).join(' ')}. Γ = {${L.GAMMA.join(' ')}}.</p>
       <details><summary>Transições do ALL (δ) — ${L.TRANSITIONS.length}</summary><table><tr><th>estado</th><th>lê</th><th>vai p/</th><th>escreve</th><th>move</th></tr>${lbaRows}</table></details>
-      <h4>Jogo</h4><p>O jogo só consome a decisão do pipeline: dano = |x| × poder (×2 na fraqueza; ÷2 se a missão falhar). AP rejeita: −4 de vida · ALL rejeita: −2 · símbolo inválido: só exibe o erro.</p></div>`;
+      <h4>Jogo</h4><p>O jogo só consome a decisão do pipeline. Cada turno sorteia uma <b>barreira</b> (ex.: 2 escudos ( ), 1 escudo [ ], profundidade ≥ 3): se os autômatos aceitam mas o escudo não cumpre a barreira, o dano é 0. Dano = |x| × poder (×2 na fraqueza).
+      Depois do feitiço o monstro ataca: dano = ATK − defesa, com defesa = ⌊pares do escudo ÷ 2⌋ (só se o AP aceitou) + Escudo Rúnico. AP rejeita = sem defesa; ALL rejeita = defende mas não fere; símbolo inválido não gasta o turno.</p></div>`;
   }
 
   function activateTab(name) {
@@ -312,13 +313,14 @@
       floater('-' + out.damage, '#00f5d4');
       const m = $('#monster'); m.classList.remove('hit'); void m.offsetWidth; m.classList.add('hit');
     } else if (out.taken) floater('-' + out.taken + ' ❤', '#f15bb5');
+    if (out.taken) { const mg = $('#mage'); mg.classList.remove('shake'); void mg.offsetWidth; mg.classList.add('shake'); }
     renderHud();
     if (out.won) {
       $('#monster').classList.add('dead');
       const eq = out.unlocked ? `<br>🎁 Novo equipamento: ${RE.game.EQUIPMENT[out.unlocked].emoji} ${RE.game.EQUIPMENT[out.unlocked].nome}` : '';
       const lastLevel = game.state.finished;
       setTimeout(() => overlay(lastLevel ? '🏆 DEMO CONCLUÍDA' : '⚔ MONSTRO DERROTADO', '#00f5d4',
-        lastLevel ? 'Os níveis 4–8 estão em desenvolvimento.' : `Você avança para o próximo nível!${eq}`,
+        lastLevel ? 'Você derrotou o Arquimago Sombrio!' : `Você avança para o próximo nível!${eq}`,
         lastLevel ? 'JOGAR DE NOVO' : 'PRÓXIMO NÍVEL',
         () => { $('#monster').classList.remove('dead'); if (lastLevel) game.restartAll(); else game.nextLevel(); $('#spell').value = ''; setLog('Novo desafio! Leia a missão no canto da arena.', ''); renderHud(); }), 900);
     } else if (out.lost) {
