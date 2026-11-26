@@ -1,0 +1,79 @@
+{
+  "ap_aceitas": [
+    { "entrada": "()#F:F", "regra": "Caso-limite: menor cadeia de L1 (escudo mínimo, x e y com 1 runa)" },
+    { "entrada": "[]#I:T", "regra": "Escudo com colchetes; AP não compara x e y" },
+    { "entrada": "(())#FI:TF", "regra": "Aninhamento de profundidade 2" },
+    { "entrada": "([])#FIT:FIT", "regra": "Parênteses e colchetes aninhados (pilha mista)" },
+    { "entrada": "()[]#T:T", "regra": "Dois blocos de escudo em sequência (E → D E)" },
+    { "entrada": "([()])[]#FITIF:FITIF", "regra": "Cadeia de 20 símbolos, profundidade 3 + bloco extra" },
+    { "entrada": "[[()]]()#FFI:IFF", "regra": "Profundidade 3 com bloco final" },
+    { "entrada": "((()))#I:I", "regra": "Profundidade 3 só com parênteses" },
+    { "entrada": "()()()#FIT:TIF", "regra": "Três blocos; x e y diferentes (aceito pelo AP)" },
+    { "entrada": "[([])]#TTTT:F", "regra": "x e y de tamanhos diferentes (AP só exige não vazios)" }
+  ],
+  "ap_rejeitadas": [
+    { "entrada": "", "regra": "Caso-limite: entrada vazia (escudo não vazio é obrigatório)" },
+    { "entrada": "(#F:F", "regra": "Escudo desbalanceado (falta fechar)" },
+    { "entrada": ")(#F:F", "regra": "Fechamento sem abertura correspondente" },
+    { "entrada": "([)]#F:F", "regra": "Fechamentos cruzados: topo da pilha incompatível" },
+    { "entrada": "#F:F", "regra": "Escudo vazio" },
+    { "entrada": "()#:F", "regra": "x vazio" },
+    { "entrada": "()#F:", "regra": "y vazio (entrada consumida em estado não final)" },
+    { "entrada": "()F:F", "regra": "Falta o separador #" },
+    { "entrada": "()#FF", "regra": "Falta o separador :" },
+    { "entrada": "())#F:F", "regra": "Fechamento extra" },
+    { "entrada": "()#F:F:F", "regra": "Dois separadores :" },
+    { "entrada": "(()#FIT:FIT", "regra": "Abertura sobrando (pilha não volta a ⊥)" }
+  ],
+  "lba_aceitas": [
+    { "entrada": "F:F", "regra": "Caso-limite: menor cadeia de L2 (x = y, 1 runa)" },
+    { "entrada": "I:I", "regra": "x = y = I" },
+    { "entrada": "T:T", "regra": "x = y = T" },
+    { "entrada": "FI:FI", "regra": "Cópia de 2 runas" },
+    { "entrada": "FIT:FIT", "regra": "Cópia de 3 runas distintas" },
+    { "entrada": "TTF:TTF", "regra": "Runas repetidas, ordem preservada" },
+    { "entrada": "FITIF:FITIF", "regra": "Cópia de 5 runas" },
+    { "entrada": "IIIIFF:IIIIFF", "regra": "Cópia longa com blocos repetidos" },
+    { "entrada": "FTFTFT:FTFTFT", "regra": "Cópia alternada" },
+    { "entrada": "FFFFFFFFF:FFFFFFFFF", "regra": "Cópia de 9 runas iguais" }
+  ],
+  "lba_rejeitadas": [
+    { "entrada": "", "regra": "Caso-limite: fita vazia (falta ':')" },
+    { "entrada": ":", "regra": "x vazio" },
+    { "entrada": "F:", "regra": "y menor que x" },
+    { "entrada": ":F", "regra": "x vazio, y não vazio" },
+    { "entrada": "F:I", "regra": "Runa de y diferente da de x" },
+    { "entrada": "FI:IF", "regra": "Mesmas runas em ordem trocada (não é cópia)" },
+    { "entrada": "FIT:FIF", "regra": "Última runa difere" },
+    { "entrada": "FIT:FI", "regra": "y mais curto: ⊣ antes de achar T" },
+    { "entrada": "FI:FIT", "regra": "y com sobra (verificação final)" },
+    { "entrada": "FIT", "regra": "Sem ':'" },
+    { "entrada": "F::F", "regra": "Dois separadores" },
+    { "entrada": "FF:F", "regra": "x maior que y" },
+    { "entrada": "FITIF:FITIT", "regra": "Diferença só na última posição" }
+  ],
+  "integracao": [
+    {
+      "nome": "Cenário 1 - aceita pelo AP e pelo ALL",
+      "entrada": "([()])[]#FITIF:FITIF",
+      "esperado": "accepted",
+      "regra": "Escudo balanceado (AP) e y = cópia de x (ALL)"
+    },
+    {
+      "nome": "Cenário 2 - rejeitada pelo AP",
+      "entrada": "(([()])[]#FITIF:FITIF",
+      "esperado": "ap_rejects",
+      "regra": "Escudo com '(' sobrando; ALL não executa"
+    },
+    {
+      "nome": "Cenário 3 - aceita pelo AP, rejeitada pelo ALL",
+      "entrada": "([()])[]#FITIF:FITIT",
+      "esperado": "all_rejects",
+      "regra": "Estrutura válida, mas y não é cópia de x (última runa)"
+    }
+  ],
+  "simbolo_invalido": [
+    { "entrada": "([()])[]#FITIF:FITIX", "simbolo": "X", "posicao": 20 },
+    { "entrada": "([()])[]#FITIF:FITI@", "simbolo": "@", "posicao": 20 }
+  ]
+}
