@@ -74,4 +74,5 @@ Testes: [tests/RESULTADOS.md](tests/RESULTADOS.md).
 
 ## Equipe
 *[PREENCHER: nomes completos e contribuição de cada integrante]*
+Gabriel Cruz Filgueira (Relatório e testes)
 
