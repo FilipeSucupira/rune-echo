@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RUNE ECHO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="logo" id="logo">RUNE<span>ECHO</span></div>
+    <div class="subtitle">AP verifica o escudo · ALL verifica o eco</div>
+    <button id="btn-restart" class="ghost">↻ reiniciar</button>
+  </header>
+
+  <main>
+    <section id="left">
+      <div id="arena">
+        <div class="hud-tl"><div id="lvl">LEVEL 1</div><div id="tipo" class="tag">GELO</div></div>
+        <div class="hud-tr" id="mission"></div>
+        <div id="monster"></div>
+        <div id="monster-name"></div>
+        <div class="bar monster-bar"><div id="monster-hp"></div><span id="monster-hp-txt"></span></div>
+        <div id="floater"></div>
+        <div id="overlay" class="hidden"></div>
+      </div>
+      <div id="log">Escreva um feitiço: escudo de ( ) [ ] + # + runas x : y.</div>
+      <form id="cast-form" autocomplete="off">
+        <input id="spell" type="text" spellcheck="false" placeholder="entrada do feitiço  ex.: ()#F:F" maxlength="80">
+        <button type="submit" id="btn-cast">LANÇAR</button>
+      </form>
+      <div id="examples"></div>
+    </section>
+
+    <aside id="right">
+      <div class="label">equipamento</div>
+      <div id="equip" class="grid3"></div>
+      <div class="label">runas</div>
+      <div id="keypad" class="grid3"></div>
+      <div id="mage">
+        <div id="mage-img"></div>
+        <div class="mage-stats">
+          <div id="mage-level">LEVEL 1</div>
+          <div id="mage-power">PODER 2</div>
+          <div class="bar mage-bar"><div id="mage-hp"></div><span id="mage-hp-txt"></span></div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <section id="grimorio" class="open">
+    <div class="g-head">
+      <div class="g-title">📖 GRIMÓRIO</div>
+      <div class="tabs" id="tabs">
+        <button data-tab="ap" class="active">AP · pilha</button>
+        <button data-tab="all">ALL · fita</button>
+        <button data-tab="der">Derivação (GLC)</button>
+        <button data-tab="regras">Regras</button>
+      </div>
+      <button id="g-toggle" class="ghost">▼ recolher</button>
+    </div>
+    <div class="g-body">
+      <div class="panel active" id="panel-ap"></div>
+      <div class="panel" id="panel-all"></div>
+      <div class="panel" id="panel-der"></div>
+      <div class="panel" id="panel-regras"></div>
+    </div>
+  </section>
+</div>
+
+<script src="src/automata/ap.js"></script>
+<script src="src/automata/lba.js"></script>
+<script src="src/automata/grammar.js"></script>
+<script src="src/automata/pipeline.js"></script>
+<script src="src/game/game.js"></script>
+<script src="src/ui/ui.js"></script>
+</body>
+</html>
