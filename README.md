@@ -74,7 +74,7 @@ Testes: [tests/RESULTADOS.md](tests/RESULTADOS.md).
 
 ## Equipe
 *[PREENCHER: nomes completos e contribuição de cada integrante]*
-Everton Gustavo de Oliveira da Silva (Elaboração da ideia geral da ideia)
+Everton Gustavo De Oliveira Da Silva (Elaboração da ideia geral da ideia)
 Gabriel Cruz Filgueira (Relatório e testes)
 
 
