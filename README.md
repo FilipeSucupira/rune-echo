@@ -73,8 +73,7 @@ Testes: [tests/RESULTADOS.md](tests/RESULTADOS.md).
 - **Uso de IA:** *[PREENCHER pela equipe]* — ferramenta usada (ex.: Antigravity/Gemini), tarefas apoiadas (estrutura do projeto, rascunho do simulador, testes, CSS) e **o que a equipe verificou** (revisão das transições, execução dos testes, conferência manual de derivações e rastreamentos).
 
 ## Equipe
-*[PREENCHER: nomes completos e contribuição de cada integrante]*
-Everton Gustavo De Oliveira Da Silva (Elaboração da ideia geral da ideia)
+Everton Gustavo de Oliveira da Silva (Elaboração da ideia geral da ideia)
 Gabriel Cruz Filgueira (Relatório e testes)
 
 
