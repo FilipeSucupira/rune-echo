@@ -40,7 +40,7 @@ src/game/game.js (níveis/dano)   src/ui/ui.js (interface + grimório)
 data/casos.json    ← dados de exemplo e casos de teste (entrada, regra)
 tests/             ← testes (node:test) e RESULTADOS.md
 docs/ESPECIFICACAO.md   ← GLC, AP, ALL, classificação, terminação, justificativas
-imagens/           ← PNGs do jogo (opcional; há fallback em emoji)
+docs/TRANSICOES.md      ← tabelas completas de transições (AP e ALL)
 ```
 
 O jogo (`src/game`) **apenas consome** a decisão de `pipeline.js`; quem decide aceitar/rejeitar é a execução das transições do AP e do ALL.
@@ -67,13 +67,19 @@ Testes: [tests/RESULTADOS.md](tests/RESULTADOS.md).
 | 8 | Arquimago Sombrio (chefe) | T | 6 | 2 ( )+2 [ ] · profundidade 4 · ( )+[ ] e ≥18 símbolos |
 
 ## Originalidade e uso de IA
-- **Problema, linguagens, GLC, AP, ALL e jogo** são da equipe e **não** são os exercícios de sala nem o exemplo da lauda (`(())#RRVVEE`).
+- **Originalidade:** a ideia do jogo, a temática (*RUNE ECHO*), as mecânicas (escudo, eco, barreiras e combate por turnos) e o esboço do protótipo de tela foram concebidos de forma totalmente original pela equipe — sem reutilizar exercícios de sala nem o exemplo da lauda (`(())#RRVVEE`).
 - **Referências conceituais:** Sipser, *Introdução à Teoria da Computação*; Hopcroft, Motwani & Ullman, *Introdução à Teoria dos Autômatos, Linguagens e Computação*; Hierarquia de Chomsky.
 - **Código/diagramas adaptados:** nenhum código de terceiros copiado. Fontes tipográficas: *Press Start 2P* e *JetBrains Mono* (Google Fonts, licença OFL).
-- **Uso de IA:** *[PREENCHER pela equipe]* — ferramenta usada (ex.: Antigravity/Gemini), tarefas apoiadas (estrutura do projeto, rascunho do simulador, testes, CSS) e **o que a equipe verificou** (revisão das transições, execução dos testes, conferência manual de derivações e rastreamentos).
+- **Uso de IA:**
+  - **Antigravity (Gemini):** apoio na estruturação do repositório, geração do código-fonte (simuladores de AP, ALL e GLC, lógica do jogo, interface HTML/CSS/JS e suíte de testes automatizados) e elaboração do roteiro da apresentação.
+  - **Claude:** apoio na formatação e geração do relatório técnico em PDF.
+  - **Produção manual e verificação da equipe:** os slides foram montados manualmente no PowerPoint, com capturas de tela e imagens inseridas à mão; a equipe revisou todas as transições do AP e do ALL, conferiu manualmente as derivações, provas de não regularidade/não livre de contexto e o limite da fita, executou os testes automatizados (`npm test`) e validou o funcionamento completo da aplicação no navegador.
 
 ## Equipe
-Everton Gustavo de Oliveira da Silva (Elaboração da ideia geral da ideia)
-Gabriel Cruz Filgueira (Relatório e testes)
-
+| Integrante | Contribuição principal |
+|---|---|
+| **Everton Gustavo de Oliveira da Silva** | Ideia, problema e fluxo |
+| **Vitor Bismarck Mello Sodré** | GLC, derivação e AP |
+| **Filipe César Sucupira Maciel** | LSC, provas e ALL |
+| **Gabriel Cruz Filgueira** | Integração, testes e relatório |
 
